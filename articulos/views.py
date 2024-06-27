@@ -17,6 +17,7 @@ def producto_lista(request):
     producto = Producto.objects.all()
     return render(request, 'articulos.html', {'producto': producto})
 
+
 def producto_nuevo(request):
     if request.method == "POST":
         form = ProductoForm(request.POST)
@@ -26,15 +27,25 @@ def producto_nuevo(request):
     else:
         form = ProductoForm()
     return render(request, 'crud/crear.html', {'form': form})
+    
 
 
-def producto_editar(request, pk):
-    producto = get_object_or_404(Producto, pk=pk)
+def producto_editar(request, id):
+    producto = Producto.objects.get(productoId=id)
+    datos= {
+
+
+        'form':ProductoForm(instance=producto)
+
+
+    }   
     if request.method == "POST":
-        form = ProductoForm(request.POST, request.FILES, instance=producto)
+        form = ProductoForm(request.POST, instance=producto)
         if form.is_valid():
             form.save()
             return redirect('producto_lista')
+        
+    return render(request, "crud/modificar.html", datos)
 
 def producto_borrar(request, pk):
     producto = get_object_or_404(Producto, pk=pk)

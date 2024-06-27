@@ -1,8 +1,90 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 
-{%block contenido%}
-{%load static%}
+{% block contenido %}
+{% load static %}
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Producto</title>
+    <!-- Cargar jQuery (necesario para el script de validación) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $("#formulario").validate({
+                rules: {
+                    nombre: "required",
+                    imagen: "required",
+                    precio: "required",
+                    nombreMarca: "required"
+                },
+                messages: {
+                    nombre: {
+                        required: 'Ingrese un nombre.'
+                    },
+                    imagen: {
+                        required: 'Ingrese una imagen.'
+                    },
+                    precio: {
+                        required: 'Ingrese un precio.'
+                    },
+                    nombreMarca: {
+                        required: 'Ingrese una marca.'
+                    }
+                }
+            });
+        });
+    </script>
+    </head>
+<body>
+    <div class="container">
+        <h2>Modificar Producto </h2>
+        <form method="POST" id="formulario2">
+            {% csrf_token %}
+
+            <div class="row">
+                <label for="{{ form.nombre.id_for_label }}">
+                    {{ form.nombre.label }}
+                </label>
+                {{ form.nombre }}
+            </div>
+
+            <div class="row">
+                <label for="{{ form.imagen.id_for_label }}">
+                    {{ form.imagen.label }}
+                </label>
+                {{ form.imagen }}
+            </div>
+
+            <div class="row">
+                <label for="{{ form.precio.id_for_label }}">
+                    {{ form.precio.label }}
+                </label>
+                {{ form.precio }}
+            </div>
+
+            <div class="row">
+                <label for="{{ form.nombreMarca.id_for_label }}">
+                    {{ form.nombreMarca.label }}
+                </label>
+                {{ form.nombreMarca }}
+            </div>
+
+            <br><br>
+            <input type="submit" class="btn btn-primary" value="Modificar">
+            <a href="{% url 'index' %}" class="btn btn-success">Inicio</a>
+
+        </form>
+    </div>
+</body>
+</html>
 
 
 {%endblock%}

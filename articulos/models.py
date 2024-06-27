@@ -9,15 +9,17 @@ class Marca(models.Model):
     def __str__(self):
         return self.nombreMarca
 
+
 class Producto(models.Model):
-    productoId=models.AutoField(primary_key=True, verbose_name="Id Producto")
-    nombre= models.CharField(max_length=50, verbose_name="Nombre")
-    imagen=models.ImageField(upload_to="imagenes", null=True, blank=True, verbose_name="Imagen")
-    precio=models.IntegerField(blank=True, null=True, verbose_name="Precio")
-    nombreMarca=models.ForeignKey(Marca,on_delete=models.CASCADE)
+    productoId = models.AutoField(primary_key=True, verbose_name="Id Producto")
+    nombre = models.CharField(max_length=50, verbose_name="Nombre")
+    imagen = models.ImageField(upload_to="imagenes", null=True, blank=True, verbose_name="Imagen")
+    precio = models.IntegerField(blank=True, null=True, verbose_name="Precio")
+    nombreMarca = models.ForeignKey(Marca, on_delete=models.CASCADE, verbose_name="Marca")
 
     def __str__(self):
         return self.nombre
+
     
 
 
