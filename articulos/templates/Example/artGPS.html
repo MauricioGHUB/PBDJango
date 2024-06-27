@@ -1,0 +1,93 @@
+{%extends 'base.html'%}
+
+{%block contenido%}
+{%load static%}
+
+<div class="product-section">
+    <div class="product-image">
+        <img src="{%static 'img/GPS.png'%}" width="350" height="350" alt="GPS">
+    </div>
+    <div class="product-details">
+        <h1>GPS CYCPLUS</h1>
+        <p>Precio: $11.490</p>
+        <p>GPS Cycplus: Explora Nuevos Horizontes en Bicicleta
+
+            Descubre el mundo con el GPS Cycplus, el compañero perfecto para tus aventuras en bicicleta. Con tecnología de vanguardia, este GPS te brinda precisión y fiabilidad en cada ruta.</p>
+            
+        <p> Características Destacadas:
+
+            Durabilidad sin Igual: Diseñado para resistir los terrenos más exigentes, el GPS Cycplus es tu fiel compañero en cada viaje, sin importar las condiciones.
+            
+            Facilidad de Uso: Su interfaz intuitiva y funcionalidades inteligentes hacen que planificar rutas y seguir tu progreso sea una tarea sencilla y placentera.
+            
+            Peso Ligero: Con tan solo 570 gramos, el GPS Cycplus no añade peso innecesario a tu bicicleta, garantizando una experiencia de conducción sin complicaciones.
+            
+            Precio Accesible: A diferencia de otros dispositivos similares, el GPS Cycplus ofrece una calidad excepcional a un precio que no pesará en tu bolsillo.
+           </p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="#" class="btn btn-primary col-12">Añadir al carrito</a>
+    </div>
+</div>
+<hr><br>
+
+<style>
+    .related-products {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin: 20px 0;
+    }
+    .related-product {
+        text-align: center;
+        margin: 20px;
+    }
+    .related-product img {
+        width: 200px;
+        height: 200px;
+    }
+    .card-title {
+        font-size: 1.2em;
+        margin-top: 10px;
+    }
+    .card-text {
+        margin: 10px 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2 class="text-center">Te sugerimos revisar estos productos</h2>
+<div class="related-products">
+    <!-- Artículo relacionado 1 -->
+    <div class="related-product">
+        <img src="{% static 'img/PROTECCION 1.png' %}" alt="KIT PROTECCION">
+        <h4 class="card-title">KIT PROTECCION</h4>
+        <p class="card-text">Precio: $12.990</p>
+        <a href="articulo_kit_p_.html" class="btn btn-primary">Visitar Artículo</a>
+    </div>
+
+    <!-- Artículo relacionado 2 -->
+    <div class="related-product">
+        <img src="{% static 'img/CADENA 10S.png' %}" alt="Cadena 10S 116L">
+        <h4 class="card-title">Cadena 10S 116L</h4>
+        <p class="card-text">Precio: $7.490<br>25% de descuento</p>
+        <a href="articulo_cadena.html" class="btn btn-primary">Visitar Artículo</a>
+    </div>
+
+    <!-- Artículo relacionado 3 -->
+    <div class="related-product">
+        <img src="{% static 'img/CASCO.png' %}" alt="CASCO ADULTO">
+        <h4 class="card-title">CASCO ADULTO</h4>
+        <p class="card-text">Precio: $11.990</p>
+        <a href="articulo_casco.html" class="btn btn-primary">Visitar Artículo</a>
+    </div>
+</div>
+</div>
+<br>
+
+{%endblock%}

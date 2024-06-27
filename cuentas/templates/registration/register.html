@@ -1,0 +1,45 @@
+{%extends 'base.html'%}
+
+{%block contenido%}
+{%load static%}
+
+<div class="center">
+    <h1>Registrarse</h1>
+    <form method="post">
+        <div class="txt_field">
+            <input type="text" required minlength="5" pattern=".{5,}" title="El nombre de usuario debe tener al menos 5 caracteres">
+            <span></span>
+            <label>Nombre de Usuario</label>
+        </div>
+        <div class="txt_field">
+            <input type="email" required minlength="8" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Introduzca una dirección de correo electrónico válida">
+            <span></span>
+            <label>Email</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" required minlength="8" pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres">
+            <span></span>
+            <label>Contraseña</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" required minlength="8" pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres" oninput="check(this)">
+            <span></span>
+            <label>Repetir Contraseña</label>
+        </div>
+        <script>
+            function check(input) {
+                if (input.value !== document.querySelector('input[type="password"]').value) {
+                    input.setCustomValidity('Las contraseñas no coinciden');
+                } else {
+                    input.setCustomValidity('');
+                }
+            }
+        </script>
+        <input type="submit" value="Registrarse">
+        <div class="signup_link">
+            ¿Ya tienes una cuenta? <a href="{%url 'login'%}">Iniciar sesión</a>
+        </div>
+    </form>
+</div>
+
+{%endblock%}

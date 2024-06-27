@@ -43,6 +43,8 @@ def producto_borrar(request, pk):
         return redirect('articulos.html')
     return render(request, 'articulos.html', {'producto': producto})
 
+def MostrarGPS(request):
+    return render(request,'Example/artGPS.html')
 
 
 
