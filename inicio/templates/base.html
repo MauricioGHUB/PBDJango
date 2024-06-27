@@ -54,13 +54,13 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Articulos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Marcas</a>
+                    <a class="nav-link " href="">Articulos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Ubicación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Iniciar sesion</a>
                 </li>
             </ul>
             <form class="form-inline mt-2 mt-md-0">
@@ -69,7 +69,8 @@
             </form>
         </div>
     </nav>
-    </nav>
+    {% block contenido %}
+        {% endblock %}
 
     </body>
     
