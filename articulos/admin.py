@@ -8,6 +8,6 @@ class marcaAdmin(admin.ModelAdmin):
 
 @admin.register(Producto)
 class productoAdmin(admin.ModelAdmin):
-    list_display=[' productoId','marca','imagen','precio']
+    list_display=['productoId','nombre','imagen','precio','nombreMarca']
 
 # Register your models here.
