@@ -66,6 +66,9 @@ def MostrarCadena(request):
 def MostrarCasco(request):
     return render(request,'Example/artCasco.html')
 
+def MostrarProductos(request):
+    return render(request,'productosEST.html')
+
 
 
 
