@@ -24,21 +24,21 @@
             <tbody>
             {%for producto in productos%}
             <tr style="background-color: white; border: solid 2px white; color: black;">
-                <th style= "padding: 20px;" scope="row">{{producto.productoId}}</th>
-                <td style= "padding: 20px;"scope="row">{{producto.nombre}}</td>
-                <td style= "padding: 20px;"scope="row">{{producto.precio}}</td>
-                <td style= "padding: 20px;"scope="row">{{producto.nombreMarca}}</td>>
+              <td style= "padding: 20px;"scope="row">{{producto.nombre}}</td>  
+              <td style= "padding: 20px;"scope="row">{{producto.precio}}</td>
+              <td style= "padding: 20px;"scope="row">{{producto.nombreMarca}}</td>>
                 {%if producto.imagen%}
-                    <td style= "padding: 20px;"><img  src="{{proucto.imagen.url}}" style="height: 70px; width: 70px; border-radius: 8px;"></td>
+                    <td style= "padding: 20px;"><img  src="{{producto.imagen.url}}" style="height: 70px; width: 70px; border-radius: 8px;"></td>
                 {%else%}
                     <td style= "padding: 20px;"><a>Producto sin imagen</a></td>
                 {%endif%}
                 <td ><a href="{% url 'detalle_producto' id=producto.productoId %}">Ver</a></td>
                 <td ><a href="{% url 'editar_producto' id=producto.productoId%}">Editar</a></td>
-                <td ><a href="{% url 'crear_producto' id=producto.productoId%}">Crear</a></td>
+                <td ></td>
                 <td ><a href="{% url 'eliminar_producto' id=producto.productoId%}">Eliminar</a></td>
             </tr>
             {%endfor%}
+            <a href="{% url 'producto_nuevo' %}">Crear</a>
             </tbody>
           </table>
     </div>
