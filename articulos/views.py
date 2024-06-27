@@ -46,6 +46,15 @@ def producto_borrar(request, pk):
 def MostrarGPS(request):
     return render(request,'Example/artGPS.html')
 
+def MostrarVolante(request):
+    return render(request,'Example/artVOLANTE.html')
+
+def MostrarCadena(request):
+    return render(request,'Example/artCADENA.html')
+
+def MostrarCasco(request):
+    return render(request,'Example/artCasco.html')
+
 
 
 

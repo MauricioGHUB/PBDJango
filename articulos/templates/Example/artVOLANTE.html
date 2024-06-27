@@ -1,0 +1,90 @@
+{%extends 'base.html'%}
+
+{%block contenido%}
+{%load static%}
+
+<main role="main" class="container">
+    <div class="row product-section">
+        <div class="col-md-6 product-image">
+            <img src="{% static 'img/VOLANTE SHIMANO.png' %}" class="img-fluid" alt="Volante Shimano">
+        </div>
+        <div class="col-md-6 product-details">
+            <h1>Volante Shimano</h1>
+            <p class="price">Precio: $50.000</p>
+            <p class="description">El volante Shimano, una obra maestra de ingeniería para tu bicicleta, te lleva a nuevos niveles de rendimiento y comodidad. Diseñado con pasión por el ciclismo, este volante está forjado con precisión para ofrecerte una experiencia de conducción sin igual.</p>
+            <p class="features">
+                <strong>Características Destacadas:</strong><br>
+                <strong>Durabilidad sin Igual:</strong> Fabricado con materiales de alta resistencia y tratado con tecnología avanzada, este volante es capaz de soportar los terrenos más exigentes y durar toda una vida.<br>
+                <strong>Rendimiento excepcional:</strong> Diseñado para proporcionar una transferencia de potencia óptima, cada pedalada se convierte en un impulso suave y potente, gracias a su diseño aerodinámico y eficiente.<br>
+                <strong>Construcción de alta calidad:</strong> Cada componente de este volante está cuidadosamente elaborado para garantizar un ajuste perfecto y una funcionalidad impecable, cumpliendo con los estándares de calidad más exigentes de la industria.<br>
+            </p>
+            <p> Especificaciones técnicas:
+                    
+                    Diámetro: 27.5 cm
+                    Peso: 300 gramos
+                    Material: Aleación de aluminio de alta resistencia
+                    Compatibilidad: Compatible con la mayoría de las bicicletas estándar del mercado.
+                    Con el volante Shimano, no solo mejoras tu bicicleta, sino que transformas tu experiencia de conducción en una aventura emocionante y confortable. Prepárate para descubrir nuevos horizontes y alcanzar tus metas con confianza y estilo.</p>
+            <a href="#" class="btn btn-primary btn-block">Añadir al carrito</a>
+        </div>
+    </div>
+    <hr>
+</main>
+
+<style>
+    .related-products {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin: 20px 0;
+    }
+    .related-product {
+        text-align: center;
+        margin: 20px;
+    }
+    .related-product img {
+        width: 200px;
+        height: 200px;
+    }   
+    .card-title {
+        font-size: 1.2em;
+        margin-top: 10px;
+    }
+    .card-text {
+        margin: 10px 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2 class="text-center">Te sugerimos revisar estos productos</h2>
+<div class="related-products">
+    <!-- Artículo relacionado 1 -->
+    <div class="related-product">
+        <img src="{% static 'img/GPS.png' %}" alt="Artículo relacionado 1">
+        <h4 class="card-title">GPS CYCPLUS</h4>
+        <p class="card-text">Precio: $11.490 <br></i> 25% de descuento </i></p>
+        <a href="{%url 'MostrarGPS'%}" class="btn btn-primary">Visitar Artículo</a>
+    </div>
+
+    <!-- Artículo relacionado 2 -->
+    <div class="related-product">
+        <img src="{% static 'img/CADENA 10S.png' %}" alt="Cadena 10S 116L">
+        <h4 class="card-title">Cadena 10S 116L</h4>
+        <p class="card-text">Precio: $7.490<br>25% de descuento</p>
+        <a href="{%url 'MostrarCadena'%}" class="btn btn-primary">Visitar Artículo</a>
+    </div>
+
+    <!-- Artículo relacionado 3 -->
+    <div class="related-product">
+        <img src="{% static 'img/CASCO.png' %}" alt="CASCO ADULTO">
+        <h4 class="card-title">CASCO ADULTO</h4>
+        <p class="card-text">Precio: $11.990</p>
+        <a href="{%url 'MostrarCasco'%}" class="btn btn-primary">Visitar Artículo</a>
+    </div>
+</div>
+</div>
+<br>
+
+{%endblock%}
