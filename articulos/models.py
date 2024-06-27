@@ -17,7 +17,7 @@ class Producto(models.Model):
     nombreMarca=models.ForeignKey(Marca,on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.marca
+        return self.nombre
     
 
 

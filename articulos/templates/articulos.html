@@ -1,0 +1,49 @@
+{%extends 'base.html'%}
+
+{%block contenido%}
+{%load static%}
+
+<div class="container">
+    <div class="row">
+        <table class="table-info">
+            <thead>
+              <tr style="background-color:  yellow; border: solid 4px white; color: black;">
+                <th style= "padding: 10px;" scope="col">Producto ID</th>
+                <th style= "padding: 10px;" scope="col">Nombre</th>
+                <th style= "padding: 10px;" scope="col">Imagen</th>
+                <th style= "padding: 10px;" scope="col">Precio</th>
+                <th style= "padding: 10px;" scope="col">Nombre Marca</th>
+                <th style= "padding: 10px;" scope="col">Ver</th>
+                <th style= "padding: 10px;" scope="col">Editar</th>
+                <th style= "padding: 10px;" scope="col">Eliminar</th>
+                <th style= "padding: 10px;" scope="col">Crear</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+            {%for producto in productos%}
+            <tr style="background-color: white; border: solid 2px white; color: black;">
+                <th style= "padding: 20px;" scope="row">{{producto.productoId}}</th>
+                <td style= "padding: 20px;"scope="row">{{producto.nombre}}</td>
+                <td style= "padding: 20px;"scope="row">{{producto.precio}}</td>
+                <td style= "padding: 20px;"scope="row">{{producto.nombreMarca}}</td>>
+                {%if producto.imagen%}
+                    <td style= "padding: 20px;"><img  src="{{proucto.imagen.url}}" style="height: 70px; width: 70px; border-radius: 8px;"></td>
+                {%else%}
+                    <td style= "padding: 20px;"><a>Producto sin imagen</a></td>
+                {%endif%}
+                <td ><a href="{% url 'detalle_producto' id=producto.productoId %}">Ver</a></td>
+                <td ><a href="{% url 'editar_producto' id=producto.productoId%}">Editar</a></td>
+                <td ><a href="{% url 'crear_producto' id=producto.productoId%}">Crear</a></td>
+                <td ><a href="{% url 'eliminar_producto' id=producto.productoId%}">Eliminar</a></td>
+            </tr>
+            {%endfor%}
+            </tbody>
+          </table>
+    </div>
+</div>
+
+
+
+{%endblock%}
