@@ -2,6 +2,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Marca, Producto
 from .forms import  ProductoForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -66,6 +67,7 @@ def MostrarCadena(request):
 def MostrarCasco(request):
     return render(request,'Example/artCasco.html')
 
+@login_required
 def MostrarProductos(request):
     return render(request,'productosEST.html')
 
