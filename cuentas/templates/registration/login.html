@@ -2,29 +2,29 @@
 
 {%block contenido%}
 {%load static%}
+{%load crispy_forms_tags%}
 
-<div class="center">
-    <h1>Iniciar Sesion</h1>
-    <form method="post">
-        <div class="txt_field">
-            <input type="text" required minlength="5" pattern=".{5,}" title="El nombre de usuario debe tener al menos 5 caracteres">
-            <span></span>
-            <label>Nombre de Usuario</label>
-        </div>
-        <div class="txt_field">
-            <input type="password" required minlength="8" pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres">
-            <span></span>
-            <label>Contraseña</label>
-        </div>
-        <div class="pass">¿Olvidaste tu contraseña?</div>
-        <input type="submit" value="Iniciar sesion">
-        <div class="signup_link">
-            ¿No estas registrado? <a href="{%url 'register'%}">Registrarse</a>
-        </div>
-        <div class="signup_link">
-            Si gustas puedes acceder sin cuenta con el <a href="{%url 'Inicio'%}">Modo vista </a>
-        </div>
-    </form>
-</div>
+<form method="post">
+    {%csrf_token%}
+    <div class="form-group">
+      <label for="id_username">Nombre de usuario</label>
+      <input
+        type="text"
+        name="username"
+        id="id_username"
+        class="form-control"
+      />
+    </div>
+    <div class="form-group">
+      <label for="id_password">Contraseña</label>
+      <input
+        type="password"
+        name="password"
+        id="id_password"
+        class="form-control"
+      />
+    </div>
+    <input type="submit" value="Iniciar sesion" class="btn btn-primary" />
+  </form>
 
 {%endblock%}

@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Producto
 from .forms import  ProductoForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -14,6 +15,8 @@ def crear(request):
 def producto_detalle(request):
     return render(request,'crud/detalle.html')
 # CRUD para producto 
+
+@login_required
 def producto_lista(request):
     productos = Producto.objects.all()
     context={
