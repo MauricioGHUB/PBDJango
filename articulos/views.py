@@ -20,6 +20,8 @@ def producto_detalle(request, id):
     return render(request, 'crud/detalle.html', context)
 
 # CRUD para producto 
+
+@login_required
 def producto_lista(request):
     productos = Producto.objects.all()
     context={
@@ -80,7 +82,6 @@ def MostrarCadena(request):
 def MostrarCasco(request):
     return render(request,'Example/artCasco.html')
 
-@login_required
 def MostrarProductos(request):
     return render(request,'productosEST.html')
 

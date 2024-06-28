@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 
@@ -40,6 +43,8 @@ INSTALLED_APPS = [
     'inicio',
     'articulos',
     'cuentas',
+    'crispy_forms',
+    'crispy_bootstrap4',
 
     
     
@@ -127,4 +132,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_URL = '/accounts/login/'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK='bootstrap4'
+
+ROLES = (
+    ('admin','Administrador'),
+    ('cliente','Cliente'),
+)
