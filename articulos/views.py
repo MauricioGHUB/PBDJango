@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .models import Producto,Marca
 from .forms import  ProductoForm
 from django.contrib.auth.decorators import login_required
+from .carrito import Carrito
 
 
 # Create your views here.
@@ -82,5 +83,64 @@ def MostrarProductos(request):
 def Inicio(request):
     return render(request,'inicio/index.html')
 
+
+
+def tienda(request):
+    producto = Producto.objects.all()
+    context = {
+        'producto': producto  # Contexto como un diccionario
+    }
+    return render(request, 'crud/tienda.html',context)
+
+def agregar_al_carrito(request, producto_id):
+    producto = get_object_or_404(Producto, productoId=producto_id)
+    carrito = Carrito(request)
+    carrito.agregar(producto)
+    return redirect('tienda')
+
+def eliminar_del_carrito(request, producto_id):
+    producto = get_object_or_404(Producto, productoId=producto_id)
+    carrito = Carrito(request)
+    carrito.eliminar(producto)
+    return redirect('carrito')
+
+def restar_del_carrito(request, producto_id):
+    producto = get_object_or_404(Producto, productoId=producto_id)
+    carrito = Carrito(request)
+    carrito.restar(producto)
+    return redirect('carrito')
+
+def limpiar_carrito(request):
+    carrito = Carrito(request)
+    carrito.limpiar()
+    return redirect('carrito')
+
+def carrito(request):
+    return render(request, 'carrito.html')
+
+def generarBoleta(request):
+    precio_total =0
+    for key, value in request.session['carrito'].items():
+        precio_total = precio_total + (int(value['precio']))(int(value['cantidad']))
+    boleta = Boleta(total = precio_total)
+    boleta.save()
+    productos = []
+    for key, value in request.session['carrito'].items():
+        productoId = Producto.objects.get(productoId= value['Id Producto'])
+        cant = value['cantidad']
+        subtotal = cantint(value['precio'])
+        detalle = DetalleBoleta(id_boleta= boleta, id_producto = productoId, cantidad = cant,subtotal= subtotal)
+        detalle.save()
+        productos.append(detalle)
+
+    datos = {
+        'productos':productos,
+        'fecha': boleta.fechaCompra,
+        'total': boleta.total
+    }
+    request.session['boleta'] = boleta.id_boleta
+    carrito = Carrito(request)
+    carrito.limpiar()
+    return render(request,'carrito/detallecarrito.html',datos)
 
 

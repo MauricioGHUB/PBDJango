@@ -1,7 +1,8 @@
 from django.urls import path
 from django.contrib.auth.decorators import login_required
-from .views import producto_lista, producto_nuevo, producto_editar, producto_borrar,producto_detalle, MostrarGPS, MostrarVolante, MostrarCadena, MostrarGPS, MostrarVolante, MostrarCasco, MostrarProductos, Inicio
-from . import views
+from .views import producto_lista, producto_nuevo, producto_editar, producto_borrar,producto_detalle, MostrarGPS, MostrarVolante, MostrarCadena, MostrarGPS, MostrarVolante, MostrarCasco, MostrarProductos, Inicio, generarBoleta
+from . import views 
+
 urlpatterns = [
     path('',Inicio, name='inicio'),  # Ruta de inicio
     path('productos', producto_lista, name='producto_lista'),  # Lista de productos
@@ -14,4 +15,9 @@ urlpatterns = [
     path('cadena/',MostrarCadena,name='MostrarCadena'),
     path('casco/',MostrarCasco,name='MostrarCasco'),
     path('producto/',MostrarProductos,name='MostrarProducto'),
+    path('carrito/', views.carrito, name='carrito'),
+    path('tienda/', views.tienda, name='tienda'),
+    path('limpiar/', views.limpiar_carrito, name='limpiar'),
+    path('generarBoleta/', views.generarBoleta, name='generarBoleta')
+    
 ]
