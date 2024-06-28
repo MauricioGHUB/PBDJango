@@ -43,32 +43,26 @@ def producto_nuevo(request):
     
 def producto_editar(request, id):
     producto = get_object_or_404(Producto, productoId=id)
-    marca = Marca.objects.all()
 
-    producto.nombre = request.POST['nombre']
-    producto.precio = request.POST['precio']
-    producto.nombreMarca = request.POST['nombre marca']
-
-    if 'imagen' in request.FILES:
-        producto.imagen = request.FILES['imagen']
-    producto.save()
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES, instance=producto)
+        if form.is_valid():
+            form.save()
+            return redirect('inicio')  # Redirige a la página principal o lista de productos
+    else:
+        form = ProductoForm(instance=producto)
 
     context = {
-
-        'producto':producto,
-        'Marca':marca
+        'form': form
     }
-    return render(request, "crud/modificar.html", context)
+    return render(request, 'crud/modificar.html', context)
 
 
 
 def producto_borrar(request, pk):
-    producto = get_object_or_404(Producto, productoId =pk)
-
-    context = {
-        'producto': producto
-    }
-    return render(request, 'articulos.html',context)
+    producto = get_object_or_404(Producto, productoId=pk)
+    producto.delete()
+    return redirect('Inicio') 
 
 def MostrarGPS(request):
     return render(request,'Example/artGPS.html')
@@ -85,6 +79,8 @@ def MostrarCasco(request):
 def MostrarProductos(request):
     return render(request,'productosEST.html')
 
+def Inicio(request):
+    return render(request,'inicio/index.html')
 
 
 

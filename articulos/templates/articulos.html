@@ -34,7 +34,7 @@
                 {% endif %}
                 <td><a href="{% url 'producto_detalle' id=producto.productoId  %}">Ver</a></td>
                 <td><a href="{% url 'producto_editar' id=producto.productoId %}">Editar</a></td>
-                <td><a href="{% url 'producto_borrar'   %}">Eliminar</a></td>
+                <td><a href="{% url 'producto_borrar' pk=producto.productoId  %}">Eliminar</a></td>
             </tr>
             {% endfor %}
             </tbody>
