@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.contrib.auth import logout,login
-from django.contrib.auth import authenticate
+from django.contrib.auth import logout,login,authenticate
 from .models import UserProfile
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm
@@ -13,19 +12,13 @@ def register(request):
     }
 
     if request.method == 'POST':
-        formulario = CustomUserCreationForm(request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            username = formulario.cleaned_data['username']
-            password = formulario.cleaned_data['password1']
+        user_creation_form = CustomUserCreationForm(data=request.POST)
+        if user_creation_form.is_valid():
+            user_creation_form.save()
 
-            user = authenticate(username=username, password=password)
-            profile = UserProfile(user=user, role='user')
-            profile.save()
-
-            login(request, user)
-            return redirect('Inicio')
-        data["form"] = formulario
+            user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
+            return redirect('login')
+        
     return render(request, 'registration/register.html', data)
 
 
