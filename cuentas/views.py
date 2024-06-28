@@ -4,10 +4,29 @@ from django.contrib.auth import logout,login
 from django.contrib.auth import authenticate
 from .models import UserProfile
 from django.contrib.auth.models import User
+from .forms import CustomUserCreationForm
 
 # Create your views here.
 def register(request):
-    return render(request, 'registration/register.html')
+    data = {
+        'form': CustomUserCreationForm()
+    }
+
+    if request.method == 'POST':
+        formulario = CustomUserCreationForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            username = formulario.cleaned_data['username']
+            password = formulario.cleaned_data['password1']
+
+            user = authenticate(username=username, password=password)
+            profile = UserProfile(user=user, role='user')
+            profile.save()
+
+            login(request, user)
+            return redirect('Inicio')
+        data["form"] = formulario
+    return render(request, 'registration/register.html', data)
 
 
 
