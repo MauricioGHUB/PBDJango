@@ -1,6 +1,7 @@
 
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Marca, Producto
+from django.http import HttpResponse
+from .models import Producto
 from .forms import  ProductoForm
 
 
@@ -14,8 +15,12 @@ def producto_detalle(request):
     return render(request,'crud/detalle.html')
 # CRUD para producto 
 def producto_lista(request):
-    producto = Producto.objects.all()
-    return render(request, 'articulos.html', {'producto': producto})
+    productos = Producto.objects.all()
+    context={
+
+        'productos':productos
+    }
+    return render(request, 'articulos.html',context)
 
 
 def producto_nuevo(request):
@@ -33,19 +38,16 @@ def producto_nuevo(request):
 def producto_editar(request, id):
     producto = Producto.objects.get(productoId=id)
     datos= {
-
-
         'form':ProductoForm(instance=producto)
-
-
     }   
     if request.method == "POST":
-        form = ProductoForm(request.POST, instance=producto)
+        form = ProductoForm(data=request.POST, instance=producto)
         if form.is_valid():
             form.save()
-            return redirect('producto_lista')
+            return redirect('articulos.html')
         
     return render(request, "crud/modificar.html", datos)
+
 
 def producto_borrar(request, pk):
     producto = get_object_or_404(Producto, pk=pk)

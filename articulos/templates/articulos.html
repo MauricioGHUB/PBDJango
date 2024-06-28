@@ -32,15 +32,15 @@
                 {% else %}
                     <td style="padding: 20px;">Producto sin imagen</td>
                 {% endif %}
-                <td><a href="{% url 'detalle_producto' id=producto.productoId %}">Ver</a></td>
-                <td></td>
-                <td><a href="{% url 'eliminar_producto' id=producto.productoId %}">Eliminar</a></td>
+                <td><a href="{% url 'producto_detalle' id=producto.productoId %}">Ver</a></td>
+                <td><a href="{% url 'producto_editar'%}">Editar</a></td>
+                <td><a href="{% url 'producto_borrar' %}">Eliminar</a></td>
             </tr>
             {% endfor %}
             </tbody>
           </table>
           <a href="{% url 'producto_nuevo' %}">Crear</a>
-          <a href="{% url 'producto_editar' %}">Editar</a>
+          
     </div>
 </div>
 {% endblock %}
