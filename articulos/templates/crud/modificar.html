@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Crear Producto</title>
+    <title>Modificar Producto</title>
     <!-- Cargar jQuery (necesario para el script de validación) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
@@ -42,49 +42,19 @@
             });
         });
     </script>
-    </head>
+</head>
 <body>
     <div class="container">
-        <h2>Modificar Producto </h2>
-        <form method="POST" id="formulario2">
+        <h2>Modificar Producto</h2>
+        <form method="POST" id="formulario" enctype="multipart/form-data">
             {% csrf_token %}
-
-            <div class="row">
-                <label for="{{ form.nombre.id_for_label }}">
-                    {{ form.nombre.label }}
-                </label>
-                {{ form.nombre }}
-            </div>
-
-            <div class="row">
-                <label for="{{ form.imagen.id_for_label }}">
-                    {{ form.imagen.label }}
-                </label>
-                {{ form.imagen }}
-            </div>
-
-            <div class="row">
-                <label for="{{ form.precio.id_for_label }}">
-                    {{ form.precio.label }}
-                </label>
-                {{ form.precio }}
-            </div>
-
-            <div class="row">
-                <label for="{{ form.nombreMarca.id_for_label }}">
-                    {{ form.nombreMarca.label }}
-                </label>
-                {{ form.nombreMarca }}
-            </div>
-
+            {{ form.as_p }}
             <br><br>
             <input type="submit" class="btn btn-primary" value="Modificar">
-            <a href="{% url 'index' %}" class="btn btn-success">Inicio</a>
-
+            <a href="{% url 'inicio' %}" class="btn btn-success">Inicio</a> <!-- Asegúrate de que 'index' es el nombre correcto -->
         </form>
     </div>
 </body>
 </html>
 
-
-{%endblock%}
+{% endblock %}
