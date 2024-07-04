@@ -2,46 +2,46 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
-<div class="container">
+<div class="container mt-4">
+    <h2>Listado de Productos</h2>
     <div class="row">
-        <table class="table-info">
-            <thead>
-              <tr style="background-color:  yellow; border: solid 4px white; color: black;">
-                <th style="padding: 10px;" scope="col">Producto ID</th>
-                <th style="padding: 10px;" scope="col">Nombre</th>
-                <th style="padding: 10px;" scope="col">Precio</th>
-                <th style="padding: 10px;" scope="col">Marca</th>
-                <th style="padding: 10px;" scope="col">Imagen</th>
-                <th style="padding: 10px;" scope="col">Ver</th>
-                <th style="padding: 10px;" scope="col">Editar</th>
-                <th style="padding: 10px;" scope="col">Eliminar</th>
-              </tr>
+        <table class="table table-striped">
+            <thead class="table-info">
+                <tr>
+                    <th scope="col">Producto ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Acciones</th>
+                </tr>
             </thead>
             <tbody>
-            {{ productos }} 
-            {% for producto in productos %}
-            <tr style="background-color: white; border: solid 2px white; color: black;">
-              <td style="padding: 20px;" scope="row">{{ producto.productoId }}</td>
-              <td style="padding: 20px;" scope="row">{{ producto.nombre }}</td>
-              <td style="padding: 20px;" scope="row">{{ producto.precio }}</td>
-              <td style="padding: 20px;" scope="row">{{ producto.nombreMarca }}</td>
-                {% if producto.imagen %}
-                    <td style="padding: 20px;">
-                        <img src="{{ producto.imagen.url }}" style="height: 70px; width: 70px; border-radius: 8px;">
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.productoId }}</td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>${{ producto.precio }}</td>
+                    <td>{{ producto.nombreMarca }}</td>
+                    <td>
+                        {% if producto.imagen %}
+                        <img src="{{ producto.imagen.url }}" style="max-height: 50px; max-width: 50px;" class="img-thumbnail" alt="{{ producto.nombre }}">
+                        {% else %}
+                        No disponible
+                        {% endif %}
                     </td>
-                {% else %}
-                    <td style="padding: 20px;">Producto sin imagen</td>
-                {% endif %}
-                <td><a href="{% url 'producto_detalle' id=producto.productoId  %}">Ver</a></td>
-                <td><a href="{% url 'producto_editar' id=producto.productoId %}">Editar</a></td>
-                <td><a href="{% url 'producto_borrar' pk=producto.productoId  %}">Eliminar</a></td>
-                <td><a href="{% url 'tienda'   %}">Carrito</a></td>
-            </tr>
-            {% endfor %}
+                    <td>
+                        <a href="{% url 'producto_detalle' id=producto.productoId %}" class="btn btn-sm btn-primary">Ver</a>
+                        <a href="{% url 'producto_editar' id=producto.productoId %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'producto_borrar' pk=producto.productoId %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
             </tbody>
-          </table>
-          <a href="{% url 'producto_nuevo' %}">Crear</a>
-          
+        </table>
+    </div>
+    <div class="row mt-3">
+        <a href="{% url 'producto_nuevo' %}" class="btn btn-success">Crear Nuevo Producto</a>
     </div>
 </div>
 {% endblock %}

@@ -1,17 +1,17 @@
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Producto,Marca
+from .models import Producto, Marca, CarritoProducto
 from .forms import  ProductoForm
 from django.contrib.auth.decorators import login_required
 from .carrito import Carrito
-
+from django.http import JsonResponse
+from .serializers import MarcaSerializer
 
 # Create your views here.
 
 def crear(request):
     return render(request,'crud/crear.html')
-
 
 def producto_detalle(request, id):
     producto = get_object_or_404(Producto, productoId=id)
@@ -34,7 +34,7 @@ def producto_lista(request):
 
 def producto_nuevo(request):
     if request.method == "POST":
-        form = ProductoForm(request.POST)
+        form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('producto_lista')
@@ -92,11 +92,26 @@ def tienda(request):
     }
     return render(request, 'crud/tienda.html',context)
 
-def agregar_al_carrito(request, producto_id):
-    producto = get_object_or_404(Producto, productoId=producto_id)
+
+def agregar_producto(request, id):
     carrito = Carrito(request)
-    carrito.agregar(producto)
-    return redirect('tienda')
+    producto = get_object_or_404(Producto, pk=id)
+    carrito.agregar(producto=producto)
+
+    # Acceder explícitamente a los campos relacionados para evitar DeferredAttribute
+    producto_data = {
+        'id': producto.productoId,
+        'nombre': producto.nombre,
+        'precio': producto.precio,
+        'marca': {
+            'id': Marca.idMarca,
+            'nombre': Marca.nombreMarca,
+            # Agregar más campos según sea necesario
+        }
+        # Agregar más campos del producto según sea necesario
+    }
+
+    return JsonResponse({'producto': producto_data})
 
 def eliminar_del_carrito(request, producto_id):
     producto = get_object_or_404(Producto, productoId=producto_id)
@@ -115,8 +130,9 @@ def limpiar_carrito(request):
     carrito.limpiar()
     return redirect('carrito')
 
-def carrito(request):
-    return render(request, 'carrito.html')
+def ver_carrito(request):
+    carrito = Carrito(request)
+    return render(request, 'carrito.html', {'carrito': Carrito.carrito})
 
 def generarBoleta(request):
     precio_total =0
@@ -142,5 +158,10 @@ def generarBoleta(request):
     carrito = Carrito(request)
     carrito.limpiar()
     return render(request,'carrito/detallecarrito.html',datos)
+
+
+def lista_productos(request):
+    productos = Producto.objects.all()
+    return render(request, 'productosEST.html', {'productos': productos})
 
 
