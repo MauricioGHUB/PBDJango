@@ -1,13 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+<<<<<<< HEAD
 from django.http import HttpResponseForbidden
+=======
+>>>>>>> 2a299d840889c4f13049a2bc2ab5b8be73f5ead9
 from .models import Producto, Marca, CarritoProducto
 from .forms import  ProductoForm
 from django.contrib.auth.decorators import login_required
 from .carrito import Carrito
 from django.http import JsonResponse
 from .serializers import MarcaSerializer
+<<<<<<< HEAD
 from functools import wraps
+=======
+>>>>>>> 2a299d840889c4f13049a2bc2ab5b8be73f5ead9
 
 # Create your views here.
 def group_required(group_name):
@@ -173,4 +179,10 @@ def generarBoleta(request):
 
 def lista_productos(request):
     productos = Producto.objects.all()
+<<<<<<< HEAD
     return render(request, 'productosEST.html', {'productos': productos})
+=======
+    return render(request, 'productosEST.html', {'productos': productos})
+
+
+>>>>>>> 2a299d840889c4f13049a2bc2ab5b8be73f5ead9
