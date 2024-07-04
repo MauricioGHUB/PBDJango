@@ -1,79 +1,77 @@
+<!-- crud/crear_producto.html -->
 {% extends 'base.html' %}
 
 {% block contenido %}
 {% load static %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Crear Producto</title>
-    <!-- Cargar jQuery (necesario para el script de validación) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-
-    <style>
-        .error {
-            color: red;
-        }
-    </style>
-    <script>
-        $(document).ready(function(){
-            $("#formulario").validate({
-                rules: {
-                    nombre: "required",
-                    imagen: "required",
-                    precio: "required",
-                    nombreMarca: "required"
-                },
-                messages: {
-                    nombre: {
-                        required: 'Ingrese un nombre.'
-                    },
-                    imagen: {
-                        required: 'Ingrese una imagen.'
-                    },
-                    precio: {
-                        required: 'Ingrese un precio.'
-                    },
-                    nombreMarca: {
-                        required: 'Ingrese una marca.'
-                    }
-                }
-            });
-        });
-    </script>
-</head>
-<body>
 <div class="container">
     <h2>Creando Artículo</h2>
     <form method="POST" id="formulario" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="row">
-            <label for="{{ form.nombre.id_for_label }}">{{ form.nombre.label }}</label>
+        <div class="form-group">
+            <label for="id_nombre">{{ form.nombre.label }}</label>
             {{ form.nombre }}
+            {% if form.nombre.errors %}
+                <p class="text-danger">{{ form.nombre.errors }}</p>
+            {% endif %}
         </div>
 
-        <div class="row">
-            <label for="{{ form.imagen.id_for_label }}">{{ form.imagen.label }}</label>
+        <div class="form-group">
+            <label for="id_imagen">{{ form.imagen.label }}</label>
             {{ form.imagen }}
+            {% if form.imagen.errors %}
+                <p class="text-danger">{{ form.imagen.errors }}</p>
+            {% endif %}
         </div>
 
-        <div class="row">
-            <label for="{{ form.precio.id_for_label }}">{{ form.precio.label }}</label>
+        <div class="form-group">
+            <label for="id_precio">{{ form.precio.label }}</label>
             {{ form.precio }}
+            {% if form.precio.errors %}
+                <p class="text-danger">{{ form.precio.errors }}</p>
+            {% endif %}
         </div>
 
-        <div class="row">
-            <label for="{{ form.nombreMarca.id_for_label }}">{{ form.nombreMarca.label }}</label>
+        <div class="form-group">
+            <label for="id_nombreMarca">{{ form.nombreMarca.label }}</label>
             {{ form.nombreMarca }}
+            {% if form.nombreMarca.errors %}
+                <p class="text-danger">{{ form.nombreMarca.errors }}</p>
+            {% endif %}
         </div>
 
-        <br><br>
+        <br>
         <input type="submit" class="btn btn-primary" value="Enviar">
         <a href="{% url 'Inicio' %}" class="btn btn-success">Inicio</a>
     </form>
 </div>
-</body>
-</html>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#formulario").validate({
+            rules: {
+                nombre: "required",
+                imagen: "required",
+                precio: "required",
+                nombreMarca: "required"
+            },
+            messages: {
+                nombre: {
+                    required: 'Ingrese un nombre.'
+                },
+                imagen: {
+                    required: 'Ingrese una imagen.'
+                },
+                precio: {
+                    required: 'Ingrese un precio.'
+                },
+                nombreMarca: {
+                    required: 'Ingrese una marca.'
+                }
+            }
+        });
+    });
+</script>
 {% endblock %}

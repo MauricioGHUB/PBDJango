@@ -1,27 +1,24 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
-from django.contrib.auth import logout,login,authenticate
+from django.shortcuts import render, redirect
+from django.contrib.auth import logout, login, authenticate
 from .models import UserProfile
-from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm
+from django.contrib.auth.models import Group
 
 # Create your views here.
 def register(request):
-    data = {
-        'form': CustomUserCreationForm()
-    }
-
     if request.method == 'POST':
-        user_creation_form = CustomUserCreationForm(data=request.POST)
+        user_creation_form = CustomUserCreationForm(request.POST)
         if user_creation_form.is_valid():
-            user_creation_form.save()
+            user = user_creation_form.save()
+            UserProfile.objects.create(user=user, role='default_role') 
+            nuevo_usuario_group = Group.objects.get(name='Cliente')
+            user.groups.add(nuevo_usuario_group)
+            login(request, user)
+            return redirect('Inicio') 
+    else:
+        user_creation_form = CustomUserCreationForm()
 
-            user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
-            return redirect('login')
-        
-    return render(request, 'registration/register.html', data)
-
-
+    return render(request, 'registration/register.html', {'form': user_creation_form})
 
 def exit(request):
     logout(request)
@@ -30,18 +27,16 @@ def exit(request):
 def iniciosesion(request):
 
     if request.method == 'POST':
-        usuario = request.POST.get('username')
-        clave = request.POST.get('password')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-        user = authenticate(request, username= usuario , password= clave)
+        user = authenticate(request, username=username, password=password)
 
         if user is not None:
             profile = UserProfile.objects.get(user=user)
-
-            request.session['perfil']= profile.role
+            request.session['perfil'] = profile.role
 
             login(request, user)
-
             return redirect('Inicio')
         else:
             context= {

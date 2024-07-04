@@ -1,5 +1,6 @@
 from django.db import models
 from distutils.command.upload import upload
+from django.contrib.auth.models import User
 
 
 class Marca(models.Model):
@@ -19,6 +20,11 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class CarritoProducto(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=1)
 
     
 
