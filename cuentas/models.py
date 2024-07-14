@@ -8,4 +8,4 @@ class UserProfile(models.Model):
     role = models.CharField(max_length=20,choices=settings.ROLES)
 
     def str(self):
-        return self.user.username + ' - '+self.role
+        return self.role

@@ -1,6 +1,4 @@
-import json
-from django.core.serializers.json import DjangoJSONEncoder
-
+from .models import Producto
 class Carrito:
     def __init__(self, request):
         self.request = request
@@ -12,23 +10,29 @@ class Carrito:
     
  
     def agregar(self, producto):
-        if str(producto.productoId) not in self.carrito:
-            self.carrito[str(producto.productoId)] = {
-                "producto_id": producto.productoId,
-                "nombre": producto.nombre,
-                "Marca": producto.nombreMarca,
-                "precio": str(producto.precio),
-                'cantidad': 1,
-                "imagen": producto.imagen.url,
-                "total": producto.precio
-            }
-        else:
-            for key, value in self.carrito.items():
-                if key == str(producto.productoId):
-                    value["cantidad"] += 1
-                    value["total"] = str(int(value["total"]) + producto.precio)
-                    break
-        self.guardar_carrito()
+        if producto.stock > -1:
+            if str(producto.productoId) not in self.carrito.keys():
+                self.carrito[str(producto.productoId)] = {
+                    "productoId": producto.productoId,
+                    "nombre": producto.nombre,
+                    "imagen": producto.imagen.url,
+                    "precio": str(producto.precio),
+                    "cantidad": 1,
+                    "total": str(producto.precio)
+                }
+                producto.stock -= 1
+                producto.save()
+            else:
+                for key, value in self.carrito.items():
+                    if key == str(producto.productoId):
+                        if producto.stock > 0:
+                            value["cantidad"] = value["cantidad"] + 1
+                            value["total"] = float(value["precio"]) * value["cantidad"]
+                            producto.stock -= 1
+                        break
+                producto.save()
+            self.guardar_carrito()
+
 
 
 
@@ -43,14 +47,33 @@ class Carrito:
             self.guardar_carrito()
     
     def restar(self, producto):
-        producto_id = str(producto.productoId)
-        if producto_id in self.carrito:
-            self.carrito[producto_id]["cantidad"] -= 1
-            self.carrito[producto_id]["total"] -= producto.precio
-            if self.carrito[producto_id]["cantidad"] < 1:
-                self.eliminar(producto)
-            self.guardar_carrito()
+        producto.productoId = str(producto.productoId)
+        for key , value in self.carrito.items():
+            if key == producto.productoId:
+                value["cantidad"] -= 1
+                value["total"] = int(value["total"]) - producto.precio
+                producto.stock += 1
+                producto.save()
+                if value["cantidad"] <1:
+                    self.eliminar(producto)
+                break
+        self.guardar_carrito()
 
     def limpiar(self):
+        for key , value in self.carrito.items():
+            producto = Producto.objects.get(productoId = int(key))
+            producto.stock += value["cantidad"]
+            producto.save()
+        self.session["carrito"] = {}
+        self.session.modified = True
+
+    def vaciar(self):
+        for key , value in self.carrito.items():
+            print("Entra a vaciar")
+            producto = Producto.objects.get(productoId = int(key))
+            print(producto.stock)
+            if producto.stock <=0:
+                producto.stock = 0
+            producto.save()
         self.session["carrito"] = {}
         self.session.modified = True

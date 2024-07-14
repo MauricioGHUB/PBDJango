@@ -7,7 +7,6 @@
 <html>
 <head>
     <title>Modificar Producto</title>
-    <!-- Cargar jQuery (necesario para el script de validación) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 
@@ -51,7 +50,7 @@
             {{ form.as_p }}
             <br><br>
             <input type="submit" class="btn btn-primary" value="Modificar">
-            <a href="{% url 'inicio' %}" class="btn btn-success">Inicio</a> <!-- Asegúrate de que 'index' es el nombre correcto -->
+            <a href="{% url 'lista_productos' %}" class="btn btn-success">Volver</a> 
         </form>
     </div>
 </body>

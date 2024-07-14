@@ -6,12 +6,13 @@ from .models import Producto
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
-        fields = ['nombre', 'imagen', 'precio', 'nombreMarca']  # No incluimos 'productoId'
+        fields = ['nombre', 'imagen', 'precio', 'nombreMarca','stock']
         labels = {
             'nombre': 'Nombre Producto',
             'imagen': 'Imagen del producto',
             'precio': 'Precio del producto',
-            'nombreMarca': 'Marca del producto'
+            'nombreMarca': 'Marca del producto',
+            'stock': 'Stock del producto'
         }
         widgets = {
             'nombre': forms.TextInput(attrs={
@@ -31,5 +32,10 @@ class ProductoForm(forms.ModelForm):
             'nombreMarca': forms.Select(attrs={
                 'class': 'form-control',
                 'id': 'nombreMarca'
+            }),
+            'stock': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ingrese el stock del producto',
+                'id': 'stock'
             })
         }

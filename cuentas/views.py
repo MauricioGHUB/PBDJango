@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth import logout, login, authenticate
 from .models import UserProfile
 from .forms import CustomUserCreationForm
 from django.contrib.auth.models import Group
+from django.conf import settings
 
 # Create your views here.
 def register(request):
@@ -10,9 +11,9 @@ def register(request):
         user_creation_form = CustomUserCreationForm(request.POST)
         if user_creation_form.is_valid():
             user = user_creation_form.save()
-            UserProfile.objects.create(user=user, role='default_role') 
-            nuevo_usuario_group = Group.objects.get(name='Cliente')
-            user.groups.add(nuevo_usuario_group)
+            profile, created = UserProfile.objects.get_or_create(user=user)
+            profile.role = settings.DEFAULT_USER_ROLE
+            profile.save()
             login(request, user)
             return redirect('Inicio') 
     else:
@@ -25,7 +26,6 @@ def exit(request):
     return redirect('login')
 
 def iniciosesion(request):
-
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -33,16 +33,20 @@ def iniciosesion(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            profile = UserProfile.objects.get(user=user)
-            request.session['perfil'] = profile.role
-
-            login(request, user)
-            return redirect('Inicio')
+            try:
+                profile = UserProfile.objects.get(user=user)
+                request.session['perfil'] = profile.role
+                login(request, user)
+                return redirect('Inicio')
+            except UserProfile.DoesNotExist:
+                context = {
+                    'error': 'Perfil de usuario no encontrado.'
+                }
+                return render(request, 'registration/login.html', context)
         else:
-            context= {
-                'error':'Error intente denuevo'
+            context = {
+                'error': 'Error intente denuevo'
             }
-
             return render(request, 'registration/login.html', context)
 
     return render(request, 'registration/login.html')
