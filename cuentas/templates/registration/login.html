@@ -1,8 +1,8 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 
-{%block contenido%}
-{%load static%}
-{%load crispy_forms_tags%}
+{% block contenido %}
+{% load static %}
+{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -31,6 +31,24 @@
             color: white;
             width: 100%;
         }
+        .password-container {
+            position: relative;
+        }
+        .password-container input[type="password"], .password-container input[type="text"] {
+            width: 100%;
+            padding-right: 40px;
+        }
+        .password-container .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 70%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .toggle-password img {
+            width: 20px;
+            height: 20px;
+        }
     </style>
 </head>
 <body>
@@ -40,25 +58,32 @@
             <h2>Ingresa tus credenciales</h2>
             <div class="form-group">
                 <label for="id_username">Nombre de usuario</label>
-                <input 
-                type="text"
-                 name="username"
-                  id="id_username"
-                   class="form-control">
+                <input type="text" name="username" id="id_username" class="form-control">
             </div>
-            <div class="form-group">
+            <div class="form-group password-container">
                 <label for="id_password">Contraseña</label>
-                <input 
-                type="password"
-                 name="password" 
-                 id="id_password" 
-                 class="form-control">
+                <input type="password" name="password" id="id_password" class="form-control">
+                <span class="toggle-password" onclick="togglePassword()">
+                    <img src="{% static 'img/ojopassword.png' %}" alt="Show Password">
+                </span>
             </div>
-            <input  type="submit" value="Iniciar sesión" class="btn btn-primary">
+            <input type="submit" value="Iniciar sesión" class="btn btn-primary">
         </form>
-        <a href="{%url 'register'%}">¿No tienes cuenta? Regístrate</a>
+        <a href="{% url 'register' %}">¿No tienes cuenta? Regístrate</a>
     </div>
     <br><br><br><br><br>
+
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("id_password");
+            var passwordFieldType = passwordField.getAttribute("type");
+            if (passwordFieldType === "password") {
+                passwordField.setAttribute("type", "text");
+            } else {
+                passwordField.setAttribute("type", "password");
+            }
+        }
+    </script>
 </body>
 </html>
-{%endblock%}
+{% endblock %}

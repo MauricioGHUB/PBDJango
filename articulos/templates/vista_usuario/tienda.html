@@ -14,7 +14,7 @@
                 <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Nombre: {{ producto.nombre }}</h5>
-                    <p class="card-title">Precio: {{ producto.precio|intcomma }}</p>
+                    <p class="card-title">Precio: ${{ producto.precio|intcomma }}</p>
                     <p class="card-title">Stock: {{ producto.stock }}</p>
                     <p class="card-title">Marca: {{ producto.nombreMarca }}</p>
                     <a href="{% url 'agregar_producto' producto.productoId %}?page={{ productos.number }}" class="btn btn-primary mt-auto">Agregar al carrito</a>
