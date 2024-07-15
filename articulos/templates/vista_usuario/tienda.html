@@ -3,7 +3,7 @@
 {% load static %}
 {% block contenido %}
 <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-<link href="{% static 'css/custom.css' %}" rel="stylesheet"> <!-- Asegúrate de enlazar tu archivo CSS personalizado -->
+<link href="{% static 'css/custom.css' %}" rel="stylesheet">
 
 <div class="container" style="background-color: rgb(241, 241, 235); display: grid; justify-content: center; padding: 20px; max-width: 350px; border-radius: 15px; margin-bottom: 20px; gap: 10px; border: solid 1px black;">
     <h4>Buscador</h4>
@@ -75,7 +75,7 @@
             productos.forEach(function(producto) {  
                 var nombreProducto = producto.querySelector('.card-title').textContent.toLowerCase();
                 if (nombreProducto.includes(valorFiltro)) {
-                    producto.style.display = 'block'; // Usar 'block' en lugar de ''
+                    producto.style.display = 'block';
                 } else {
                     producto.style.display = 'none';
                 }
