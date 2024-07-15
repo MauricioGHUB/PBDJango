@@ -75,19 +75,13 @@ REM Aquí deberás agregar la configuración de la base de datos, por ejemplo, m
 REM Migrar base de datos
 python manage.py migrate
 
-REM Crear superusuario
-echo Creando superusuario...
-REM Aquí puedes automatizar la creación del superusuario usando un script de gestión de Django.
-python manage.py createsuperuser --username admin --email admin@example.com --noinput
-python manage.py shell -c "from django.contrib.auth.models import User; User.objects.filter(username='admin').update(password='pbkdf2_sha256$216000$<<your-hash-here>>')"
-
 REM Ejecutar el servidor de desarrollo
 python manage.py runserver
 
 Credenciales de Administrador
 Usuario: admin
-Email: admin@example.com
-Contraseña: admin
+Email: 
+Contraseña: admin12345
 Estructura del Proyecto
 PBDjango/: Carpeta principal del proyecto.
 cuentas/: Aplicación para la gestión de usuarios.
