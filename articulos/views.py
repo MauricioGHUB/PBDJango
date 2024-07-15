@@ -32,12 +32,21 @@ def producto_detalle(request, id):
 
 @admin_required()
 def producto_lista(request):
-    productos = Producto.objects.all()
-    context={
-
-        'productos':productos
+    productos_list = Producto.objects.all()
+    paginator = Paginator(productos_list, 10)
+    page = request.GET.get('page')
+    
+    try:
+        productos = paginator.page(page)
+    except PageNotAnInteger:
+        productos = paginator.page(1)
+    except EmptyPage:
+        productos = paginator.page(paginator.num_pages)
+    
+    context = {
+        'productos': productos
     }
-    return render(request, 'crud/Lista_productos.html',context)
+    return render(request, 'crud/Lista_productos.html', context)
 
 
 def producto_nuevo(request):
