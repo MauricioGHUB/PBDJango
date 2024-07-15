@@ -9,6 +9,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" href="{% static 'img/PalmaBike_Logo.ico' %}">
+
     <style>
         html, body {
             height: 100%;
@@ -78,12 +79,21 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'compras_cliente' %}">Historial</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
-                    </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">
+                        <img src="{% static 'img/perfil logo.png' %}" alt="user_logo" width="20px" height="20px" style="margin-right: 5px;">
+                        {{ user.username }} - Cerrar sesión
+                    </a>
+                </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                    <a class="nav-link" href="{% url 'login' %}">
+                        <img src="{% static 'img/perfil logo.png' %}" alt="user_logo" width="20px" height="20px" style="margin-right: 5px;">
+                        Iniciar sesión</a>
                 </li>
                 {% endif %}
             </ul>

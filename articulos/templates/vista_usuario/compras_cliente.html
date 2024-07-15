@@ -2,7 +2,7 @@
 
 {% block contenido %}
 <div class="container mt-4">
-    <h2>Mis Compras</h2>
+    <h2>Mis Compras como {{ user.username }}</h2>
     {% for compra in compras %}
         <div class="card mb-3">
             <div class="card-header">
