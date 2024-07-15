@@ -17,8 +17,8 @@
             <div class="card mb-4 card-custom">
                 <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Nombre: {{ producto.nombre }}</h5>
-                    <p class="card-text">Precio: {{ producto.precio }}</p>
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text">Precio: ${{ producto.precio }}</p>
                     <p class="card-text">Stock: {{ producto.stock }}</p>
                     <p class="card-text">Marca: {{ producto.nombreMarca }}</p>
                     <a href="{% url 'agregar_producto' producto.productoId %}" class="btn btn-primary mt-auto">Agregar al carrito</a>
