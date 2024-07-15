@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import producto_lista, producto_nuevo, producto_editar, producto_borrar, producto_detalle, generarBoleta,tienda,ver_carrito, compras_cliente, ver_compras_todos_clientes
 from . import views 
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('tienda/', tienda, name='tienda'),
@@ -16,4 +17,8 @@ urlpatterns = [
     path('productos/', producto_lista, name='lista_productos'),
     path('compras/', compras_cliente, name='compras_cliente'),
     path('admin/compras/', ver_compras_todos_clientes, name='compras_todos_clientes'),
+    path('reset/password/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('reset/password/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
