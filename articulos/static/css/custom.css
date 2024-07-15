@@ -12,3 +12,15 @@
 .btn-primary {
     margin-top: auto;
 }
+.producto-card {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.card-custom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}

@@ -5,15 +5,15 @@
 <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static 'css/custom.css' %}" rel="stylesheet"> <!-- Asegúrate de enlazar tu archivo CSS personalizado -->
 
-<div class="container" style="background-color: beige;display: grid; justify-content: center; padding: 20px; max-width: 350px; border-radius: 15px; margin-bottom: 20px; gap: 10px; border: solid 1px black;">
+<div class="container" style="background-color: beige; display: grid; justify-content: center; padding: 20px; max-width: 350px; border-radius: 15px; margin-bottom: 20px; gap: 10px; border: solid 1px black;">
     <h4>Filtro de productos</h4>
     <input type="text" id="filtro-nombre" placeholder="Filtrar por nombre...">
 </div>
 
 <div class="container">
-    <div class="row">
+    <div class="row" id="productos-container">
         {% for producto in productos %}
-        <div class="col-md-4">
+        <div class="col-md-4 producto-card">
             <div class="card mb-4 card-custom">
                 <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
                 <div class="card-body d-flex flex-column">
@@ -70,12 +70,12 @@
         var filtroInput = document.getElementById('filtro-nombre');
         filtroInput.addEventListener('keyup', function() {
             var valorFiltro = filtroInput.value.toLowerCase();
-            var productos = document.querySelectorAll('.container .card');
+            var productos = document.querySelectorAll('.producto-card');
 
-            productos.forEach(function(producto) {  // Cambié 'Producto' a 'producto' para que coincida con la definición
+            productos.forEach(function(producto) {  
                 var nombreProducto = producto.querySelector('.card-title').textContent.toLowerCase();
                 if (nombreProducto.includes(valorFiltro)) {
-                    producto.style.display = '';
+                    producto.style.display = 'block'; // Usar 'block' en lugar de ''
                 } else {
                     producto.style.display = 'none';
                 }
